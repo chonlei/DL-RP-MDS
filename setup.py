@@ -26,7 +26,7 @@ setup(
         'matplotlib==3.3.3',
         #'scikit-learn==0.24.0',
         'scikit-learn==1.0.0',
-        'tensorflow==2.4.0',
+        'tensorflow==2.5.0',
         'tensorflow-addons==0.13.0',
         'keras-tuner==1.0.2',
         'imbalanced-learn==0.8.1',
