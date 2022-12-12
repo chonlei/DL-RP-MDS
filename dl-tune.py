@@ -64,7 +64,7 @@ print('\n')
 
 
 # Make save directory
-savedir = 'out/mlc-tune-2'
+savedir = 'out/mlc-tune'
 if not os.path.isdir(savedir):
     os.makedirs(savedir)
 

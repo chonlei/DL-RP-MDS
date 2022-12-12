@@ -46,7 +46,7 @@ args = parser.parse_args()
 np.random.seed(args.seed)
 nn.tf.random.set_seed(args.seed)
 
-# Parameters (best hyperparameters from mlc-tune-2.py)
+# Parameters (best hyperparameters from dl-tune.py)
 n_pcs = 6
 n_neurons_ae = 1000
 n_hiddens_ae = 2
