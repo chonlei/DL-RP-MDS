@@ -1,0 +1,163 @@
+Hyperparameter search completed for n_pcs = 2
+n_neurons = 1024
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.5731869339942932
+fbeta_score = 0.573186993598938
+val_accuracy = 0.5888223648071289
+val_fbeta_score = 0.5888223648071289
+
+
+Hyperparameter search completed for n_pcs = 3
+n_neurons = 1024
+n_hiddens = 3
+dropout = 0.2
+Metrics:
+accuracy = 0.654785692691803
+fbeta_score = 0.654785692691803
+val_accuracy = 0.6654468774795532
+val_fbeta_score = 0.6654468774795532
+
+
+Hyperparameter search completed for n_pcs = 4
+n_neurons = 512
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.7660393714904785
+fbeta_score = 0.7660393714904785
+val_accuracy = 0.7649146318435669
+val_fbeta_score = 0.7649146914482117
+
+
+Hyperparameter search completed for n_pcs = 5
+n_neurons = 512
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9135538339614868
+fbeta_score = 0.9135538339614868
+val_accuracy = 0.92514967918396
+val_fbeta_score = 0.92514967918396
+
+
+Hyperparameter search completed for n_pcs = 6
+n_neurons = 128
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9484840035438538
+fbeta_score = 0.948483943939209
+val_accuracy = 0.9500998258590698
+val_fbeta_score = 0.9500998258590698
+
+
+Hyperparameter search completed for n_pcs = 7
+n_neurons = 512
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9750023484230042
+fbeta_score = 0.9750023484230042
+val_accuracy = 0.978487491607666
+val_fbeta_score = 0.978487491607666
+
+
+Hyperparameter search completed for n_pcs = 8
+n_neurons = 512
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9912555813789368
+fbeta_score = 0.9912555813789368
+val_accuracy = 0.9921268820762634
+val_fbeta_score = 0.9921269416809082
+
+
+Hyperparameter search completed for n_pcs = 9
+n_neurons = 1024
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9873586297035217
+fbeta_score = 0.9873586297035217
+val_accuracy = 0.9906852841377258
+val_fbeta_score = 0.9906852841377258
+
+
+Hyperparameter search completed for n_pcs = 10
+n_neurons = 1024
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9975287318229675
+fbeta_score = 0.9975286722183228
+val_accuracy = 0.9972277879714966
+val_fbeta_score = 0.9972277879714966
+
+
+Hyperparameter search completed for n_pcs = 11
+n_neurons = 1024
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9987643957138062
+fbeta_score = 0.9987643957138062
+val_accuracy = 0.9981148838996887
+val_fbeta_score = 0.9981149435043335
+
+
+Hyperparameter search completed for n_pcs = 12
+n_neurons = 128
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9991921186447144
+fbeta_score = 0.9991920590400696
+val_accuracy = 0.9987801909446716
+val_fbeta_score = 0.9987801909446716
+
+
+Hyperparameter search completed for n_pcs = 13
+n_neurons = 128
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9996673464775085
+fbeta_score = 0.9996673464775085
+val_accuracy = 0.998336672782898
+val_fbeta_score = 0.9983366131782532
+
+
+Hyperparameter search completed for n_pcs = 14
+n_neurons = 512
+n_hiddens = 0
+dropout = 0.0
+Metrics:
+accuracy = 1.0
+fbeta_score = 1.0
+val_accuracy = 0.9992237687110901
+val_fbeta_score = 0.9992237091064453
+
+
+Hyperparameter search completed for n_pcs = 20
+n_neurons = 1024
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.8522953987121582
+fbeta_score = 0.85233473777771
+val_accuracy = 0.9987801909446716
+val_fbeta_score = 0.9987801909446716
+
+
+Hyperparameter search completed for n_pcs = 25
+n_neurons = 128
+n_hiddens = 3
+dropout = 0.0
+Metrics:
+accuracy = 0.9998574256896973
+fbeta_score = 0.9998574256896973
+val_accuracy = 0.9998891353607178
+val_fbeta_score = 0.999889075756073
