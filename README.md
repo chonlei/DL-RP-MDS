@@ -26,9 +26,9 @@ $ pip install -e .
 
 ### Main
 All takes a required argument `-g` or `--gene` to select the gene (TP53, MLH1, or MSH2) for analysis.
-- `dl-pred.py`: For now use mainly this to do DL-RP-MDS predictions.
-- `dl-kfold.py`: Run k-fold validation for DL-RP-MDS models.
 - `dl-tune.py`: Run hyperparameter tuning for DL-RP-MDS models.
+- `dl-kfold.py`: Run k-fold validation for DL-RP-MDS models.
+- `dl-pred.py`: Run DL-RP-MDS predictions.
 
 ### Folders
 - `data`: Contains MD simulation data and labels.

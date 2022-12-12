@@ -53,8 +53,8 @@ nn.tf.random.set_seed(args.seed)
 
 print('Gene:', args.gene)
 
-# NOTE: These parameters should be/is chosen through model selection with.
-#       k-fold validation.
+# Parameters
+# NOTE: Please input the best hyperparameters from dl-tune.py below
 n_pcs = 6
 n_neurons_ae = 1000
 n_hiddens_ae = 2
