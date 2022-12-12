@@ -41,5 +41,5 @@ If you publish any work based on the contents of this repository please cite ([C
 
 Tam _et al._
 (2023).
-[DL-RP-MDS: Integration of Deep Learning with Ramachandran Plot-Molecular Dynamics Simulation for Genetic Variant Classification](.).
+[DL-RP-MDS: Integration of Deep Learning with Ramachandran Plot-Molecular Dynamics Simulation for Genetic Variant Classification](CITATION).
 _iScience_, accepted.
