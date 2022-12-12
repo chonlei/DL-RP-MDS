@@ -40,11 +40,17 @@ parser.add_argument('-p', '--plot', action='store_true',
                     help='Making and showing some plots')
 parser.add_argument('-x', '--cached', action='store_true',
                     help='Use cached AE and MLC')
+required = parser.add_argument_group('required arguments')
+required.add_argument('-g', '--gene', type=str, required=True,
+                    choices=['TP53', 'MLH1', 'MSH2'],
+                    help='Gene for analysis')
 args = parser.parse_args()
 
 # Set seed
 np.random.seed(args.seed)
 nn.tf.random.set_seed(args.seed)
+
+print('Gene:', args.gene)
 
 # Parameters (best hyperparameters from dl-tune.py)
 n_pcs = 6
@@ -98,7 +104,7 @@ with open('%s/%s-mlc-input-%s.txt' % (savedir, args.method, saveas), 'w') as f:
 
 
 # Load data
-x_train, l_train, m_train = io.load_training_rama('data/MLH1',
+x_train, l_train, m_train = io.load_training_rama('data/' + args.gene,
                                                   postfix='_30_40ns',
                                                   extra=True)
 
@@ -327,153 +333,3 @@ for x, l in zip(x_train, l_train[:, 0, 0, 1]):
     pred_train.append(guess)
     pred_prob_train.append([prob, prob_b, prob_p, prob_b_sd, prob_p_sd])
 pred_prob_train = np.array(pred_prob_train)
-
-
-#
-# Prediction
-#
-x_vus, m_vus = io.load_vus_rama('data/MLH1', postfix='_30_40ns')
-
-xvus = x_vus.shape  # [-1, 334, 217*2]
-
-x_vus = x_vus.reshape(xvus[0] * xvus[1], xvus[2])
-
-x_vus = scaler.transform(x_vus)
-x_vus_tmp = np.zeros(x_vus.shape)[:, :n_pcs]
-for i in range(xvus[0]):
-    if args.method == 'pca':
-        x_vus_tmp[i*xvus[1]:(i+1)*xvus[1]] = pca.transform(x_vus[i*xvus[1]:(i+1)*xvus[1]])
-    elif args.method == 'ae':
-        x_vus_tmp[i*xvus[1]:(i+1)*xvus[1]] = encoder.transform(x_vus[i*xvus[1]:(i+1)*xvus[1]])
-    elif args.method == 'aerf':
-        x_vus[i*xvus[1]:(i+1)*xvus[1]] = encoder.transform(x_vus[i*xvus[1]:(i+1)*xvus[1]])
-        x_vus_tmp[i*xvus[1]:(i+1)*xvus[1]] = x_vus[i*xvus[1]:(i+1)*xvus[1], sorted_idx[:n_pcs]]
-x_vus = scaler2.transform(x_vus_tmp)
-
-x_vus = x_vus.reshape(xvus[:-1] + (n_pcs,))
-x_vus_c = np.mean(x_vus, axis=1)
-
-if False:
-    for i, x in enumerate(x_vus):
-        pred = model.predict(x[:, :n_pcs])
-        np.savetxt(f'tmp/ae-vus-{i}.csv', x[:, :n_pcs], delimiter=',')
-        np.savetxt(f'tmp/classified-vus-{i}.csv', pred, delimiter=',')
-    sys.exit()
-
-
-pred_vus = []
-pred_prob_vus = []
-for x in x_vus:
-    pred = model.predict(x[:, :n_pcs])
-
-    prob_b = np.mean(pred[:, 0])
-    prob_p = np.mean(pred[:, 1])
-    prob_b_sd = np.std(pred[:, 0])
-    prob_p_sd = np.std(pred[:, 1])
-    #prob_b = np.percentile(pred[:, 0], 75)
-    #prob_p = np.percentile(pred[:, 1], 50)
-    prob = np.max(autoencoder.tf.nn.softmax([prob_b, prob_p]).numpy())
-    #prob = np.max(np.array([prob_b, prob_p]) / (prob_b + prob_p))
-    # Unknown or Deleterious
-    guess = 'U' if prob_b > prob_p else 'D'
-
-    pred_vus.append(guess)
-    pred_prob_vus.append([prob, prob_b, prob_p, prob_b_sd, prob_p_sd])
-pred_prob_vus = np.array(pred_prob_vus)
-
-
-# Compute centroid
-if args.method == 'pca':
-    x_train = x_train.reshape(xtrs)
-elif args.method in ['ae', 'aerf']:
-    x_train = x_train.reshape(xtrs[:-1] + (n_pcs,))
-x_train_c = np.mean(x_train, axis=1)
-
-
-# Plot
-if args.plot:
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    b = np.array(l_train[:, 0, 0, 1], dtype=bool)
-    d = np.array([p == 'D' for p in pred_vus], dtype=bool)
-
-    x_train_b = x_train[~b].reshape(-1, n_pcs)
-    x_train_p = x_train[b].reshape(-1, n_pcs)
-
-    _, axes = plt.subplots(n_pcs, n_pcs, figsize=(2 * n_pcs, 2 * n_pcs))
-    for i in range(n_pcs):
-        for j in range(n_pcs):
-            if i == j:
-                axes[i, j].hist(x_train_c[b][:, j], color='C1', alpha=0.8, histtype='step')
-                axes[i, j].hist(x_vus_c[d][:, j], color='C3', alpha=0.8, histtype='step')
-                axes[i, j].hist(x_train_c[~b][:, j], color='C0', alpha=0.8, histtype='step')
-                axes[i, j].hist(x_vus_c[~d][:, j], color='C2', alpha=0.8, histtype='step')
-            elif i > j:
-                axes[i, j].scatter(x_train_c[b][:, j], x_train_c[b][:, i], color='C1', alpha=0.5)
-                axes[i, j].scatter(x_vus_c[d][:, j], x_vus_c[d][:, i], color='C3', alpha=0.5)
-                axes[i, j].scatter(x_train_c[~b][:, j], x_train_c[~b][:, i], color='C0', alpha=0.5)
-                axes[i, j].scatter(x_vus_c[~d][:, j], x_vus_c[~d][:, i], color='C2', alpha=0.5)
-            elif i < j:
-                # Top-right: no plot
-                axes[i, j].axis('off')
-
-            # Set tick labels
-            if i < n_pcs - 1:
-                # Only show x tick labels for the last row
-                axes[i, j].set_xticklabels([])
-            if j > 0:
-                # Only show y tick labels for the first column
-                axes[i, j].set_yticklabels([])
-        if i > 0:
-            axes[i, 0].set_ylabel('dim %s' % (i + 1))
-        else:
-            axes[i, 0].set_ylabel('Counts')
-        axes[-1, i].set_xlabel('dim %s' % (i + 1))
-    plt.suptitle('Training: Blue (Benign), Orange (Pathogenic) |'
-                 + ' Prediction: Green (Unknown), Red (Deleterious)', fontsize=18)
-    plt.tight_layout()
-    plt.savefig(savedir + '/' + args.method + '-mlc-prediction-' + saveas, dpi=200)
-    plt.close()
-
-
-#
-# Output coordinates of the centroids for each mutant
-#
-d_train = {
-    'mutants': m_train,
-    'B/P': ['P' if i else 'B' for i in l_train[:, 0, 0, 1]],
-    'U/D': pred_train,
-    'certainty': pred_prob_train[:, 0],
-    'P(U)': pred_prob_train[:, 1],
-    'P(D)': pred_prob_train[:, 2],
-    'SD(P(U))': pred_prob_train[:, 3],
-    'SD(P(D))': pred_prob_train[:, 4],
-}
-for i in range(x_train_c.shape[1]):
-    d_train['dim' + str(i + 1)] = x_train_c[:, i]
-cols = ['mutants', 'B/P'] + ['dim' + str(i + 1)
-                             for i in range(x_train_c.shape[1])] \
-       + ['U/D', 'certainty', 'P(U)', 'P(D)', 'SD(P(U))', 'SD(P(D))']
-df = pd.DataFrame(d_train, columns=cols)
-df.to_csv('%s/%s-mlc-train-%s.csv' % (savedir, args.method, saveas),
-          index=False, header=True)
-
-d_vus = {
-    'mutants': m_vus,
-    'B/P': ['N/A' for i in m_vus],
-    'U/D': pred_vus,
-    'probability': pred_prob_vus,
-    'certainty': pred_prob_vus[:, 0],
-    'P(U)': pred_prob_vus[:, 1],
-    'P(D)': pred_prob_vus[:, 2],
-    'SD(P(U))': pred_prob_vus[:, 3],
-    'SD(P(D))': pred_prob_vus[:, 4],
-}
-for i in range(x_vus_c.shape[1]):
-    d_vus['dim' + str(i + 1)] = x_vus_c[:, i]
-cols = ['mutants', 'B/P'] + ['dim' + str(i + 1)
-                             for i in range(x_vus_c.shape[1])] \
-       + ['U/D', 'certainty', 'P(U)', 'P(D)', 'SD(P(U))', 'SD(P(D))']
-df = pd.DataFrame(d_vus, columns=cols)
-df.to_csv('%s/%s-mlc-vus-%s.csv' % (savedir, args.method, saveas),
-          index=False, header=True)

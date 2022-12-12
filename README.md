@@ -25,6 +25,7 @@ $ pip install -e .
 ## Structure of the repo
 
 ### Main
+All takes a required argument `-g` or `--gene` to select the gene (TP53, MLH1, or MSH2) for analysis.
 - `dl-pred.py`: For now use mainly this to do DL-RP-MDS predictions.
 - `dl-kfold.py`: Run k-fold validation for DL-RP-MDS models.
 - `dl-tune.py`: Run hyperparameter tuning for DL-RP-MDS models.

@@ -41,6 +41,10 @@ parser.add_argument('-v', '--verbose', action='store_true',
                     help='Printing tensorflow output to stdout')
 parser.add_argument('-p', '--plot', action='store_true',
                     help='Making and showing some plots')
+required = parser.add_argument_group('required arguments')
+required.add_argument('-g', '--gene', type=str, required=True,
+                    choices=['TP53', 'MLH1', 'MSH2'],
+                    help='Gene for analysis')
 args = parser.parse_args()
 
 # Set seed
@@ -48,6 +52,7 @@ np.random.seed(args.seed)
 nn.tf.random.set_seed(args.seed)
 
 print('Seed:', args.seed)
+print('Gene:', args.gene)
 
 # Training params
 epochs = 100  # NOTE: epochs and batch_size are used by both AE and MLC
@@ -70,7 +75,8 @@ if not os.path.isdir(savedir):
 
 
 # Load data and perform dimensionality reduction
-x_train, l_train, m = io.load_training_rama('data/MLH1', postfix='_30_40ns', extra=True)
+x_train, l_train, m = io.load_training_rama('data/' + args.gene,
+                                            postfix='_30_40ns', extra=True)
 l_train = np.asarray(list(l_train))
 xtrs = x_train.shape
 x_train = x_train.reshape(xtrs[0] * xtrs[1], xtrs[2])

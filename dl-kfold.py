@@ -34,18 +34,24 @@ np.warnings.filterwarnings('ignore')
 parser = argparse.ArgumentParser('K-fold validation for AE-multi-label classifier')
 parser.add_argument('--seed', type=int, default=0,
                     help='Seeding of the run')
-parser.add_argument('--split', type=str, default='variants',
+parser.add_argument('--split', type=str, default='frames',
                     choices=['variants', 'frames'],
                     help='Splitting data method')
 parser.add_argument('-v', '--verbose', action='store_true',
                     help='Printing tensorflow output to stdout')
 parser.add_argument('-x', '--cached', action='store_true',
                     help='Use cached AE and MLC')
+required = parser.add_argument_group('required arguments')
+required.add_argument('-g', '--gene', type=str, required=True,
+                    choices=['TP53', 'MLH1', 'MSH2'],
+                    help='Gene for analysis')
 args = parser.parse_args()
 
 # Set seed
 np.random.seed(args.seed)
 nn.tf.random.set_seed(args.seed)
+
+print('Gene:', args.gene)
 
 # NOTE: These parameters should be/is chosen through model selection with.
 #       k-fold validation.
@@ -101,7 +107,7 @@ with open('%s/mlc-input-%s.txt' % (savedir, saveas), 'w') as f:
 
 
 # Load data
-x, l, m = io.load_training_rama('data/MLH1',
+x, l, m = io.load_training_rama('data/' + args.gene,
                                 postfix='_30_40ns',
                                 extra=True)
 
