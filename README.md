@@ -4,6 +4,8 @@ Source code and data used in the article "Integration of Deep Learning with Rama
 
 This repository aims to apply a deep learning classification algorithm to determine deleterious variants from VUS based on features extracted from MD simulations using benign and pathogenic variants.
 
+**Web app:** <https://genemutation.fhs.um.edu.mo/DL-RP-MDS/>
+
 By: Benjamin Tam, Zixin Qin, Bojin Zhao, San Ming Wang, Chon Lok Lei
 
 ### Requirements
