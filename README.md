@@ -1,5 +1,7 @@
 # DL-RP-MDS
 
+[![DOI](https://zenodo.org/badge/577130441.svg)](https://zenodo.org/badge/latestdoi/577130441)
+
 Source code and data used in the article "Integration of Deep Learning with Ramachandran Plot Molecular Dynamics Simulation for Genetic Variant Classification" (Tam et al. _iScience_, 2023).
 
 This repository aims to apply a deep learning classification algorithm to determine deleterious variants from VUS based on features extracted from MD simulations using benign and pathogenic variants.
