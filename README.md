@@ -1,6 +1,6 @@
 # DL-RP-MDS
 
-Source code and data used in the article "DL-RP-MDS: Integration of Deep Learning with Ramachandran Plot-Molecular Dynamics Simulation for Genetic Variant Classification" (Tam et al. _iScience_, 2023).
+Source code and data used in the article "Integration of Deep Learning with Ramachandran Plot Molecular Dynamics Simulation for Genetic Variant Classification" (Tam et al. _iScience_, 2023).
 
 This repository aims to apply a deep learning classification algorithm to determine deleterious variants from VUS based on features extracted from MD simulations using benign and pathogenic variants.
 
@@ -42,5 +42,5 @@ If you publish any work based on the contents of this repository please cite ([C
 
 Tam _et al._
 (2023).
-[DL-RP-MDS: Integration of Deep Learning with Ramachandran Plot-Molecular Dynamics Simulation for Genetic Variant Classification](CITATION).
+[Integration of Deep Learning with Ramachandran Plot Molecular Dynamics Simulation for Genetic Variant Classification](CITATION).
 _iScience_, accepted.
