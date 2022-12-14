@@ -4,7 +4,7 @@ To cite this repository or the article in publications, please use:
 
 Tam, B., Qin, Z., Zhao, B., Wang, S.M. and Lei, C.L.
 (2023).
-DL-RP-MDS: Integration of Deep Learning with Ramachandran Plot-Molecular Dynamics Simulation for Genetic Variant Classification
+Integration of Deep Learning with Ramachandran Plot Molecular Dynamics Simulation for Genetic Variant Classification
 iScience, accepted.
 
 
@@ -14,7 +14,7 @@ A BibTeX entry for LaTeX users is
 
 @article{Tam2023DLRPMDS,
   author = {Tam, B. and Qin, Z. and Zhao, B. and Wang, S.M. and Lei, C.L.},
-  title = {DL-RP-MDS: Integration of Deep Learning with Ramachandran Plot-Molecular Dynamics Simulation for Genetic Variant Classification},
+  title = {Integration of Deep Learning with Ramachandran Plot Molecular Dynamics Simulation for Genetic Variant Classification},
   journal = {iScience},
   year = {2023},
 }
